@@ -1,0 +1,31 @@
+@import "src/styles/variables";
+
+.toolbar {
+  padding: 0 10px;
+  display: flex;
+  grid-gap: 10px;
+  height: 20px;
+
+  .text-primary {
+    margin-right: 7px;
+  }
+
+  .toolbar-btn {
+    cursor: pointer;
+    position: relative;
+    color: $text-secondary;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 0;
+      background: $text-secondary;
+      transition: 0.3s ease;
+    }
+    &:hover::after {
+      height: 1px;
+    }
+  }
+}

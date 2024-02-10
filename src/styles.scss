@@ -1,0 +1,136 @@
+@import "src/styles/variables";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inconsolata", monospace;
+}
+
+//body, containers
+
+body {
+  background: $bg;
+  color: $text-primary;
+  height: 100%;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 30px);
+}
+
+.board-container {
+  display: grid;
+  grid-template-rows: 36px 600px;
+  grid-gap: 20px;
+}
+
+// text styles
+
+.text-primary {
+  color: $text-primary;
+}
+
+.text-secondary {
+  color: $text-secondary;
+}
+
+.text-tertiary {
+  color: $text-tertiary;
+}
+
+.text-accent {
+  color: $accent;
+}
+
+.link {
+  text-decoration: none;
+  cursor: pointer;
+  color: $text-secondary;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: $text-secondary;
+  }
+
+  &:hover {
+    color: $text-primary;
+    &::after {
+      background: $text-primary;
+    }
+  }
+
+  &:active {
+    &::after {
+      opacity: 0;
+    }
+  }
+}
+
+.link-accent {
+  @extend .link;
+  color: $accent;
+  &::after {
+    background: $accent;
+  }
+}
+
+// primary content
+
+.info-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  .info {
+    color: $text-secondary;
+  }
+
+  .info-right {
+    text-align: right;
+  }
+}
+
+.board {
+  width: 600px;
+  height: 600px;
+  border: 1px solid $borders;
+  border-radius: 10px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  overflow: hidden;
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+    .sq {
+      background: $bg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:nth-child(odd) {
+      .sq:nth-child(even) {
+        background: $board-sq-white;
+        color: $bg;
+      }
+    }
+    &:nth-child(even) {
+      .sq:nth-child(odd) {
+        background: $board-sq-white;
+        color: $bg;
+      }
+    }
+  }
+}
