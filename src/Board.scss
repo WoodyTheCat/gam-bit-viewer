@@ -1,0 +1,37 @@
+@import "styles/variables";
+
+.board {
+  width: 600px;
+  height: 600px;
+  border: 1px solid $borders;
+  border-radius: 10px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  overflow: hidden;
+  grid-column: 1;
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+    .sq {
+      background: $bg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:nth-child(odd) {
+      .sq:nth-child(even) {
+        background: $board-sq-white;
+        color: $bg;
+      }
+    }
+    &:nth-child(even) {
+      .sq:nth-child(odd) {
+        background: $board-sq-white;
+        color: $bg;
+      }
+    }
+  }
+}

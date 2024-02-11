@@ -1,0 +1,88 @@
+@import "styles/variables";
+
+.player {
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid $borders;
+
+  transition: 0.4s ease;
+
+  display: grid;
+  grid-template-rows: 70px 1fr;
+  height: 70px;
+  position: relative;
+  overflow: hidden;
+
+  .flex-inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 13.5px 12px;
+    outline: 1px solid $borders;
+  }
+
+  .right {
+    text-align: right;
+
+    .link {
+      flex-grow: 0;
+    }
+  }
+
+  .name {
+    font-size: 24px;
+    font-weight: 700;
+    color: $text-secondary;
+  }
+
+  .time {
+    color: $text-secondary;
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .terminal {
+    font-size: 14px;
+    color: $text-secondary;
+    overflow-y: scroll;
+    pointer-events: none;
+    padding: 0 12px;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &.show-terminal {
+    flex-grow: 1;
+
+    .terminal {
+      pointer-events: auto;
+      padding: 12px;
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    border-color: $accent;
+    .name {
+      color: $text-primary;
+    }
+    .flex-inner {
+      animation: loading-pulse 1s ease infinite;
+      outline-color: $accent;
+    }
+  }
+}
+
+@keyframes loading-pulse {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: fade-out($accent, 0.9);
+  }
+  100% {
+    background: transparent;
+  }
+}

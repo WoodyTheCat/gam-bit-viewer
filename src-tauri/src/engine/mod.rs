@@ -96,7 +96,7 @@ impl Engine {
         if error_msg.trim().is_empty() {
             Ok(())
         } else {
-            Err(EngineError(name.to_string()))
+            Err(EngineError::InvalidOption(name.into(), value.into()))
         }
     }
 
@@ -127,7 +127,7 @@ impl Engine {
             .as_mut()
             .unwrap()
             .write_fmt(args)
-            .map_err(Into::<EngineError>::into)?;
+            .map_err(|_| EngineError::Io)?;
         Ok(())
     }
 
@@ -141,7 +141,8 @@ impl Engine {
                 .stdout
                 .as_mut()
                 .unwrap()
-                .read(&mut buf)?;
+                .read(&mut buf)
+                .map_err(|_| EngineError::Io)?;
             s.push(buf[0] as char);
             if buf[0] == '\n' as u8 {
                 break;

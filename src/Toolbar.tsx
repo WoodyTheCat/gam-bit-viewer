@@ -1,3 +1,4 @@
+import { invoke } from "@tauri-apps/api/tauri";
 import "./Toolbar.scss";
 
 function Toolbar() {
@@ -9,6 +10,9 @@ function Toolbar() {
       <a className="toolbar-btn">file</a>
       <a className="toolbar-btn">game</a>
       <a className="toolbar-btn">prefs</a>
+      <a className="toolbar-btn" onClick={() => invoke("set_board")}>
+        set_board
+      </a>
     </div>
   );
 }

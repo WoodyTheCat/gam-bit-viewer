@@ -1,5 +1,6 @@
-import "./App.css";
 import Toolbar from "./Toolbar";
+import Engine from "./Engine";
+import Board from "./Board";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
           <div className="info-bar">
             <div className="info info-left">
               <h2>
-                <span className="text-accent">human</span>'s turn
+                <span className="text-accent">your</span> turn
               </h2>
               <p>
                 human v bot game <span className="text-tertiary">|</span>{" "}
@@ -26,16 +27,11 @@ function App() {
               </p>
             </div>
           </div>
-          <div className="board">
-            {[...Array(8)].map((_, i) => (
-              <div className="row">
-                {[...Array(8)].map((_, j) => (
-                  <div key={(7 - i) * 8 + j} className="sq">
-                    {(7 - i) * 8 + j}
-                  </div>
-                ))}
-              </div>
-            ))}
+          <Board />
+          <div className="player-info">
+            {/* <Human /> */}
+            <Engine id={0} />
+            <Engine active id={1} />
           </div>
         </div>
       </div>

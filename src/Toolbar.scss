@@ -24,8 +24,12 @@
       background: $text-secondary;
       transition: 0.3s ease;
     }
-    &:hover::after {
-      height: 1px;
+    &:hover {
+      color: $text-primary;
+      &::after {
+        height: 1px;
+        background: $text-primary;
+      }
     }
   }
 }

@@ -1,27 +1,40 @@
-use std::sync::PoisonError;
+// #[derive(Serialize)]
+// pub struct AppError(String);
 
 use serde::Serialize;
 
-#[derive(Serialize)]
-pub struct AppError(pub String);
-
-impl From<EngineError> for AppError {
-    fn from(value: EngineError) -> Self {
-        Self(value.0)
-    }
+#[derive(thiserror::Error, Debug, Serialize)]
+pub enum AppError {
+    #[error("Mutex was poisoned!")]
+    PoisonError,
+    // #[error("")]
+    // Io {
+    //     #[from]
+    //     source: std::io::Error,
+    //     backtrace: Backtrace,
+    // },
+    #[error("Tauri error")]
+    Tauri,
+    #[error("Engine error: {0:?}")]
+    EngineError(#[from] EngineError),
+    #[error("{0}")]
+    String(String),
 }
 
-impl<T> From<PoisonError<T>> for AppError {
-    fn from(value: PoisonError<T>) -> Self {
-        Self(String::from("Poison error!"))
-    }
-}
+// impl From<tauri::Error> for AppError {
+//     fn from(value: tauri::Error) -> Self {
+//         Self(value)
+//     }
+// }
 
-#[derive(Debug)]
-pub struct EngineError(pub String);
-
-impl From<std::io::Error> for EngineError {
-    fn from(_value: std::io::Error) -> Self {
-        Self(String::from("Stdio error"))
-    }
+#[derive(thiserror::Error, Debug, Serialize)]
+pub enum EngineError {
+    #[error("Connection failed!")]
+    ConnectionFailure,
+    #[error("Io error")]
+    Io,
+    #[error("Invalid option \"{0}\" with value \"{1}\"!")]
+    InvalidOption(String, String),
+    #[error("Invalid FEN character: '{0}'")]
+    InvalidFENChar(char),
 }
